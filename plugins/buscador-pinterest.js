@@ -55,24 +55,20 @@ let handler = async (m, { conn, text, args }) => {
       const message = generateWAMessageFromContent(
         m.chat,
         {
-          viewOnceMessage: {
-            message: {
-              interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-                body: proto.Message.InteractiveMessage.Body.create({
-                  text: `🤍 Resultados para: ${text}`,
-                }),
-                footer: proto.Message.InteractiveMessage.Footer.create({
-                  text: `🔎 Pinterest - Búsqueda`,
-                }),
-                header: proto.Message.InteractiveMessage.Header.create({
-                  hasMediaAttachment: false,
-                }),
-                carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
-                  cards: cards,
-                }),
-              }),
-            },
-          },
+          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+            body: proto.Message.InteractiveMessage.Body.create({
+              text: `🤍 Resultados para: ${text}`,
+            }),
+            footer: proto.Message.InteractiveMessage.Footer.create({
+              text: `🔎 Pinterest - Búsqueda`,
+            }),
+            header: proto.Message.InteractiveMessage.Header.create({
+              hasMediaAttachment: false,
+            }),
+            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
+              cards: cards,
+            }),
+          }),
         },
         { quoted: m }
       );
@@ -80,8 +76,8 @@ let handler = async (m, { conn, text, args }) => {
       await conn.relayMessage(m.chat, message.message, { messageId: message.key.id });
       await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
     }
-  } catch(e) {
-    conn.reply(m.chat, 'Error al obtener imágenes de Pinterest :\n\n' + e, m);
+  } catch (e) {
+    conn.reply(m.chat, 'Error al obtener imágenes de Pinterest:\n\n' + e, m);
   }
 };
 
@@ -141,7 +137,6 @@ const pins = async (query) => {
     'x-pinterest-source-url': '/',
     'x-requested-with': 'XMLHttpRequest'
   };
-
 
   try {
     const res = await axios.get(link, { headers });
