@@ -1,81 +1,93 @@
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { proto, generateWAMessageFromContent } from '@whiskeysockets/baileys';
+import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys';
 
 let handler = async (m, { conn, text, args }) => {
   if (!text) return m.reply(`🌱 Ingresa un texto. Ejemplo: .pinterest Sylphiette`);
 
   try {
     if (text.includes("https://")) {
-      await m.react("⌛");
+      m.react("⌛");
       let i = await dl(args[0]);
       let isVideo = i.download.includes(".mp4");
       await conn.sendMessage(m.chat, { [isVideo ? "video" : "image"]: { url: i.download }, caption: i.title }, { quoted: m });
-      return await m.react("☑️");
-    }
+      m.react("☑️");
+    } else {
+      m.react('🕒');
+      const results = await pins(text);
+      if (!results.length) return conn.reply(m.chat, `No se encontraron resultados para "${text}".`, m);
 
-    await m.react('🕒');
-    const results = await pins(text);
-    if (!results.length) return conn.reply(m.chat, `No se encontraron resultados para "${text}".`, m);
+      let cards = [];
+      for (let i = 0; i < results.length; i++) {
+        let item = results[i];
 
-    // Solo los primeros 10 resultados
-    const cards = results.slice(0, 10).map((item, i) => ({
-      body: proto.Message.InteractiveMessage.Body.fromObject({
-        text: `Imagen ${i + 1}`,
-      }),
-      footer: proto.Message.InteractiveMessage.Footer.fromObject({
-        text: `🔎 Pinterest`,
-      }),
-      header: proto.Message.InteractiveMessage.Header.fromObject({
-        title: "",
-        hasMediaAttachment: true,
-        imageMessage: {
-          url: item.image_large_url,
-          mimetype: 'image/jpeg'
-        }
-      }),
-      nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-        buttons: [
-          {
-            name: "cta_url",
-            buttonParamsJson: JSON.stringify({
-              display_text: "📍 Ver en Pinterest",
-              url: "https://pinterest.com", // puedes agregar aquí el link si tienes `item.pin`
+        cards.push({
+          body: proto.Message.InteractiveMessage.Body.fromObject({
+            text: `Imagen ${i + 1}`,
+          }),
+          footer: proto.Message.InteractiveMessage.Footer.fromObject({
+            text: `🔎 Pinterest`,
+          }),
+          header: proto.Message.InteractiveMessage.Header.fromObject({
+            title: "",
+            hasMediaAttachment: true,
+            imageMessage: {
+              url: item.image_large_url,
+              mimetype: 'image/jpeg'
+            },
+          }),
+          nativeFlowMessage:
+            proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+              buttons: [
+                {
+                  name: "cta_url",
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "📍 Ver en Pinterest",
+                    url: item.pin || 'https://www.pinterest.com/',
+                  }),
+                },
+              ],
             }),
+        });
+      }
+
+      const message = generateWAMessageFromContent(
+        m.chat,
+        {
+          viewOnceMessage: {
+            message: {
+              interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+                body: proto.Message.InteractiveMessage.Body.create({
+                  text: `🤍 Resultados para: ${text}`,
+                }),
+                footer: proto.Message.InteractiveMessage.Footer.create({
+                  text: `🔎 Pinterest - Búsqueda`,
+                }),
+                header: proto.Message.InteractiveMessage.Header.create({
+                  hasMediaAttachment: false,
+                }),
+                carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
+                  cards: cards,
+                }),
+              }),
+            },
           },
-        ],
-      })
-    }));
+        },
+        { quoted: m }
+      );
 
-    const message = generateWAMessageFromContent(
-      m.chat,
-      {
-        viewOnceMessage: {
-          message: {
-            interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-              body: { text: `🤍 Resultados para: ${text}` },
-              footer: { text: `🔎 Pinterest - Búsqueda` },
-              header: { hasMediaAttachment: false },
-              carouselMessage: { cards }
-            })
-          }
-        }
-      },
-      { quoted: m }
-    );
-
-    await conn.relayMessage(m.chat, message.message, { messageId: message.key.id });
-    await m.react('✅');
-
-  } catch (e) {
-    console.error(e);
-    conn.reply(m.chat, '❌ Error al obtener imágenes de Pinterest:\n\n' + e.message, m);
+      await conn.relayMessage(m.chat, message.message, { messageId: message.key.id });
+      await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+    }
+  } catch(e) {
+    conn.reply(m.chat, 'Error al obtener imágenes de Pinterest :\n\n' + e, m);
   }
 };
 
 handler.help = ['pinterest'];
 handler.command = ['pinterest', 'pin'];
 handler.tags = ['dl'];
+
 export default handler;
 
 async function dl(url) {
