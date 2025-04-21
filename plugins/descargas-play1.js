@@ -65,7 +65,7 @@ const ddownr = {
 const handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     if (!text.trim()) {
-      return conn.reply(m.chat, "⚔️ *Kirito-Bot* | Ingresa el nombre de la canción que deseas buscar.", m, rcanal);
+      return conn.reply(m.chat, "⚔️ *AsukaBot* | Ingresa el nombre de la canción que deseas buscar.", m, rcanal);
     }
 
     const search = await yts(text);
@@ -78,12 +78,12 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const vistas = formatViews(views);
     const thumb = (await conn.getFile(thumbnail))?.data;
 
-    const infoMessage = ` 🫆 \`Kirito-Bot - Descargas\`\n\n*✦ Título:* ${title}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Duración:* ${timestamp}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Vistas:* ${vistas}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Canal:* ${videoInfo.author.name || "Desconocido"}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Publicado:* ${ago}\n> ━━━━━━━━━━━━━━━━━━━━━\n*∞ Enlace:* ${url}`;
+    const infoMessage = ` 🫆 \`AsukaBot - Descargas\`\n\n*✦ Título:* ${title}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Duración:* ${timestamp}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Vistas:* ${vistas}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Canal:* ${videoInfo.author.name || "Desconocido"}\n> ━━━━━━━━━━━━━━━━━━━━━\n*✰ Publicado:* ${ago}\n> ━━━━━━━━━━━━━━━━━━━━━\n*∞ Enlace:* ${url}`;
 
     const JT = {
       contextInfo: {
         externalAdReply: {
-          title: "Kirito-Bot MD 👑",
+          title: "AsukaBot 👑",
           body: "(1) Delos mejores Bots de WhatsApp",
           mediaType: 1,
           previewType: 0,
@@ -122,7 +122,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
               video: { url: downloadUrl },
               fileName: `${title}.mp4`,
               mimetype: "video/mp4",
-              caption: "⚔ Aquí tienes tu video descargado por *Kirito-Bot MD* ⚔",
+              caption: "⚔ Aquí tienes tu video descargado por *AsukaBot* ⚔",
               thumbnail: thumb
             }, { quoted: fkontak });
             break;
