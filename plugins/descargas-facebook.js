@@ -34,7 +34,7 @@ const handler = async (m, { text, conn, args }) => {
   try {
     
     await conn.sendMessage(m.chat, { video: { url: video }, caption: ` ╭──────⚔──────╮  
-  ${emoji} 𝑲𝑰𝑹𝑰𝑻𝑶-𝑩𝑶𝑻 𝑴𝑫   
+  ${emoji} 𓂀 𝔸𝕤𝕦𝕜𝕒𝔹𝕠𝕥 𓂀
 ╰──────⚔──────╯\n⟢ 𝑨𝒌𝒊 𝒕𝒊𝒆𝒏𝒆𝒔: *˙Ⱉ˙ฅ*\n⟢ 𝑫𝒊𝒔𝒇𝒓𝒖𝒕𝒂.`, fileName: 'fb.mp4', mimetype: 'video/mp4' }, { quoted: m })
     await m.react(done); 
   } catch (e) {
