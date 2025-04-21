@@ -96,7 +96,7 @@ global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo
 
 //Id Channel
 global.idchannel = '@newsletter'
-global.canalIdM = ["@newsletter", "120363365444927738@newsletter"]
+global.canalIdM = ["@newsletter", "@newsletter"]
 global.canalNombreM = ["✯ 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 - 🅲🅷🅰🅽🅽🅴🅻 ✯", "⏤͟͟͞͞𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁"]
 global.channelRD = await getRandomChannel()
 
