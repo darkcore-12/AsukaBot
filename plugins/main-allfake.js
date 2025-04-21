@@ -34,10 +34,10 @@ let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? c
 global.creador = 'Wa.me/50488198373'
 global.ofcbot = `${conn.user.jid.split('@')[0]}`
 global.asistencia = 'Wa.me/50488198573'
-global.namechannel = '𝐊𝐢𝐫𝐢𝐭𝐨 - 𝐁𝐨𝐭 𝐌𝐃 • ᥙ⍴ძᥲ𝗍ᥱs ฅ՞•ﻌ•՞ฅ'
-global.namechannel2 = '𝐤𝐢𝐫𝐢𝐭𝐨 -𝐁𝐨𝐭 𝐌𝐃 • ᥲ᥎іs᥆s ฅ՞•ﻌ•՞ฅ'
-global.namegrupo = '𝐊𝐢𝐫𝐢𝐭𝐨 -𝐁𝐨𝐭 𝐌𝐃 • ᥆𝖿іᥴіᥲᥣ ˙Ⱉ˙ฅ'
-global.namecomu = '𝐤𝐢𝐫𝐢𝐭𝐨- 𝐁𝐨𝐭 𝐌𝐃 • ᥴ᥆mᥙᥒі𝗍ᥡ ˙Ⱉ˙ฅ'
+global.namechannel = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥙ⍴ძᥲ𝗍ᥱs ฅ՞•ﻌ•՞ฅ'
+global.namechannel2 = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥲ᥎іs᥆s ฅ՞•ﻌ•՞ฅ'
+global.namegrupo = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥆𝖿іᥴіᥲᥣ ˙Ⱉ˙ฅ'
+global.namecomu = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥴ᥆mᥙᥒі𝗍ᥡ ˙Ⱉ˙ฅ'
 global.listo = ' *Aquí tienes ˙Ⱉ˙ฅ*'
 global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
 
@@ -58,7 +58,7 @@ global.emojis = [emoji, emoji2, emoji3, emoji4, emoji5].getRandom()
 global.wait = 'ฅ՞•ﻌ•՞ฅ *𝗘𝘀𝗽𝗲𝗿𝗮 𝗨𝗻 𝗠𝗼𝗺𝗲𝗻𝘁𝗼, 𝗦𝗼𝘆 𝗟𝗲𝗻𝘁𝗼 ...*';
 
 //Enlaces
-var github = 'https://github.com/deylinqff/Kirito-Bot-MD' 
+var github = 'https://github.com/' 
 var web = 'https://kirito-md.vercel.app/' 
 let instagram = 'https://www.instagram.com/'
 
@@ -86,18 +86,18 @@ global.readMore = more.repeat(850)
 
 global.authsticker = `┊🤖 Bot Ofc\n┊↳ ${wm}\n\n┊👑 Usuario\n┊↳ @${conn.getName(m.sender)}\n`;
 
-global.packsticker = `┊ 👑 kirito-Bot MD\n↳https://kirito-md.vercel.app/\n\n┊ 🔥 ɪɴғᴏʀᴍᴀᴄɪᴏɴ\n↳https://github.com/deylinqff/Kirito-Bot-MD`
+global.packsticker = `┊ 👑 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁\n↳https://kirito-md.vercel.app/\n\n┊ 🔥 ɪɴғᴏʀᴍᴀᴄɪᴏɴ\n↳https://github.com/`
 
 //Fakes
 global.fkontak = { key: { participants:"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=50488198573:50488198573\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 
-global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: '120363365444927738@newsletter', newsletterName: "👑 . ˚ Cһᥲᥒᥒᥱᥣ 〢𝚔𝚒𝚛𝚒𝚝𝚘 - 𝙱𝚘𝚝 𝙼𝙳 ☆˒˒", serverMessageId: -1 }
+global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: '@newsletter', newsletterName: "👑 . ˚ Cһᥲᥒᥒᥱᥣ 〢𝚔𝚒𝚛𝚒𝚝𝚘 - 𝙱𝚘𝚝 𝙼𝙳 ☆˒˒", serverMessageId: -1 }
 }}, { quoted: m }
 
 //Id Channel
-global.idchannel = '120363365444927738@newsletter'
-global.canalIdM = ["120363365444927738@newsletter", "120363365444927738@newsletter"]
-global.canalNombreM = ["✯ 🄺🄸🅁🄸🅃🄾 - 🅲🅷🅰🅽🅽🅴🅻 ✯", "⏤͟͟͞͞𝐤𝐢𝐫𝐢𝐭𝐨 - 𝐁𝐨𝐭『𝐌𝐃』"]
+global.idchannel = '@newsletter'
+global.canalIdM = ["@newsletter", "120363365444927738@newsletter"]
+global.canalNombreM = ["✯ 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 - 🅲🅷🅰🅽🅽🅴🅻 ✯", "⏤͟͟͞͞𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁"]
 global.channelRD = await getRandomChannel()
 
 global.icono = [ 
