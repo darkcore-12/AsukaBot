@@ -1,7 +1,9 @@
-// Créditos Del Código A FzTeis
+
 import axios from 'axios';
 import cheerio from 'cheerio';
-import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys';
+import baileys from '@whiskeysockets/baileys';
+const { generateWAMessageFromContent, proto } = baileys;
+
 
 let handler = async (m, { conn, text, args }) => {
   if (!text) return m.reply(`🌱 Ingresa un texto. Ejemplo: .pinterest Sylphiette`);
