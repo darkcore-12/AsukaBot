@@ -10,55 +10,56 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let mime = (q.msg || q).mimetype || q.mediaType || '';
     if (/webp|image|video/g.test(mime)) {
       if (/video/g.test(mime) && (q.msg || q).seconds > 15) {
-        return m.reply(`${emoji2} *¡El video no puede durar más de 15 segundos!...*`, m, rcanal);
+        return m.reply('*¡El video no puede durar más de 15 segundos!...*', m);
       }
+
       let img = await q.download?.();
-
       if (!img) {
-        return conn.reply(m.chat, `${emoji} *Por favor, envía una imagen o video para hacer un sticker.*`, m, rcanal);
+        return conn.reply(m.chat, '*Por favor, envía una imagen o video para hacer un sticker.*', m);
       }
 
-      let out;
       try {
-        const packstickers = global.db.data.users[m.sender];
-        const texto1 = packstickers?.text1 || `${global.packsticker}`;
-        const texto2 = packstickers?.text2 || `${global.packsticker2}`;
+        const packstickers = global.db.data.users[m.sender] || {};
+        const texto1 = packstickers.text1 || global.packsticker || '';
+        const texto2 = packstickers.text2 || global.packsticker2 || '';
         stiker = await sticker(img, false, texto1, texto2);
       } catch (e) {
-        console.error(e);
-      } finally {
-        if (!stiker) {
-          if (/webp/g.test(mime)) out = await webp2png(img);
-          else if (/image/g.test(mime)) out = await uploadImage(img);
-          else if (/video/g.test(mime)) out = await uploadFile(img);
-          if (typeof out !== 'string') out = await uploadImage(img);
-          stiker = await sticker(false, out, global.packsticker, global.packsticker2);
-        }
+        console.error('[❌ ERROR EN STICKER DIRECTO]', e);
       }
+
+      if (!stiker) {
+        let out;
+        if (/webp/g.test(mime)) out = await webp2png(img);
+        else if (/image/g.test(mime)) out = await uploadImage(img);
+        else if (/video/g.test(mime)) out = await uploadFile(img);
+        if (typeof out !== 'string') out = await uploadImage(img);
+        stiker = await sticker(false, out, global.packsticker, global.packsticker2);
+      }
+
     } else if (args[0]) {
       if (isUrl(args[0])) {
         stiker = await sticker(false, args[0], global.packsticker, global.packsticker2);
       } else {
-        return m.reply(`${msm} *El URL es incorrecto...*`, m, rcanal);
+        return m.reply('*El URL es incorrecto...*', m);
       }
     }
   } catch (e) {
-    console.error(e);
+    console.error('[ERROR GENERAL]', e);
     if (!stiker) stiker = e;
   } finally {
     if (stiker) {
       await conn.sendMessage(
-        m.chat, 
-        { sticker: stiker }, 
-        { quoted: fkontak, contextInfo: }
+        m.chat,
+        { sticker: stiker },
+        { quoted: m, contextInfo: { externalAdReply: { title: 'Sticker Bot', body: 'Generador de Stickers', thumbnailUrl: null, mediaType: 1, renderLargerThumbnail: true } } }
       );
     } else {
-      return conn.reply(m.chat, `${emoji} *Por favor, envía una imagen o video para hacer un sticker.*`, m, rcanal);
+      return conn.reply(m.chat, 'Por favor, envía una imagen o video para hacer un sticker.*', m);
     }
   }
 };
 
-handler.help = ['stiker <img>', 'sticker <url>'];
+handler.help = ['sticker <imagen>', 'sticker <url>'];
 handler.tags = ['sticker'];
 handler.command = ['s', 'sticker', 'stiker'];
 handler.register = true;
@@ -66,5 +67,5 @@ handler.register = true;
 export default handler;
 
 const isUrl = (text) => {
-  return text.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)(jpe?g|gif|png)/, 'gi'));
+  return /^https?:\/\/.+\.(jpe?g|gif|png|webp)$/i.test(text);
 };
