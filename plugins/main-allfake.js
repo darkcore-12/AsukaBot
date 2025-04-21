@@ -31,9 +31,9 @@ let pp = ''
 let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 //let pp = await conn.profilePictureUrl(who, 'image').catch(_ => 'https://telegra.ph/file/327f6ad853cb4f405aa80.jpg')
 
-global.creador = 'Wa.me/50488198373'
+global.creador = 'Wa.me/51928616320'
 global.ofcbot = `${conn.user.jid.split('@')[0]}`
-global.asistencia = 'Wa.me/50488198573'
+global.asistencia = 'Wa.me/51928616320'
 global.namechannel = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥙ⍴ძᥲ𝗍ᥱs ฅ՞•ﻌ•՞ฅ'
 global.namechannel2 = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥲ᥎іs᥆s ฅ՞•ﻌ•՞ฅ'
 global.namegrupo = '𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 • ᥆𝖿іᥴіᥲᥣ ˙Ⱉ˙ฅ'
@@ -59,7 +59,7 @@ global.wait = 'ฅ՞•ﻌ•՞ฅ *𝗘𝘀𝗽𝗲𝗿𝗮 𝗨𝗻 𝗠𝗼�
 
 //Enlaces
 var github = 'https://github.com/' 
-var web = 'https://kirito-md.vercel.app/' 
+var web = '' 
 let instagram = 'https://www.instagram.com/'
 
 global.redes = [github, web, instagram].getRandom()
