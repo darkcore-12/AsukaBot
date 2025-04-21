@@ -24,7 +24,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         const texto2 = packstickers.text2 || global.packsticker2 || '';
         stiker = await sticker(img, false, texto1, texto2);
       } catch (e) {
-        console.error('[❌ ERROR EN STICKER DIRECTO]', e);
+        console.error('error', e);
       }
 
       if (!stiker) {
