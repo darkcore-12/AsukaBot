@@ -1,4 +1,4 @@
-import {googleImage} from '@bochilteam/scraper';
+/*import {googleImage} from '@bochilteam/scraper';
 const handler = async (m, {conn, text, usedPrefix, command}) => {
 if (!text) return conn.reply(m.chat, `${emoji} Por favor, ingresa un término de búsqueda.`, m);
 await m.react(rwait)
@@ -15,4 +15,4 @@ handler.tags = ['buscador', 'tools', 'descargas'];
 handler.command = ['image', 'imagen'];
 handler.register = true
 
-export default handler;
+export default handler;*/
