@@ -86,7 +86,7 @@ global.readMore = more.repeat(850)
 
 global.authsticker = `┊🤖 Bot Ofc\n┊↳ ${wm}\n\n┊👑 Usuario\n┊↳ @${conn.getName(m.sender)}\n`;
 
-global.packsticker = `┊ 👑 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁\n↳https://kirito-md.vercel.app/\n\n┊ 🔥 ɪɴғᴏʀᴍᴀᴄɪᴏɴ\n↳https://github.com/`
+global.packsticker = `┊ 👑 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁\n↳https://asukaBot-md.vercel.app/\n\n┊ 🔥 ɪɴғᴏʀᴍᴀᴄɪᴏɴ\n↳https://github.com/`
 
 //Fakes
 global.fkontak = { key: { participants:"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=50488198573:50488198573\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
