@@ -1,4 +1,4 @@
-import fs from 'fs';
+/*import fs from 'fs';
 
 let handler = async (m, { conn }) => {
     let img = './src/catalogo.jpg';
@@ -47,4 +47,4 @@ handler.command = ['colaboradores', 'staff'];
 handler.register = true;
 handler.tags = ['main'];
 
-export default handler;
+export default handler;*/
