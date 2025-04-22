@@ -11,7 +11,7 @@ var handler = async (m, { conn, text, participants, isOwner, isAdmin }) => {
 
     let tagText = text ? text : (m.quoted && m.quoted.text ? m.quoted.text : "*Hola!!*")
 
-    let newText = `${tagText}\n\n> 𝐤𝐢𝐫𝐢𝐭𝐨-𝐁𝐨𝐭 𝐌𝐃`
+    let newText = `${tagText}\n\n> ＡｓｕｋａＢｏｔ`
 
     let q = m.quoted ? m.quoted : m || m.text || m.sender
     let c = m.quoted ? await m.getQuotedObj() : m.msg || m.text || m.sender
