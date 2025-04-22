@@ -2,7 +2,7 @@ import pkg from '@whiskeysockets/baileys';
 import axios from 'axios';
 import cheerio from 'cheerio';
 
-const { generateWAMessageContent, generateWAMessageFromContent, proto } = pkg;
+const { generateWAMessageContent, generateWAMessageFromContent} = pkg;
 
 let handler = async (m, { conn, text, args }) => {
   if (!text) return m.reply(`🌱 Ingresa un texto. Ejemplo: .pinterest Sylphiette`);
