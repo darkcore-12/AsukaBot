@@ -39,7 +39,7 @@ let handler = async (m, { conn, text }) => {
     } catch (error) {
         console.error(error);
         return conn.sendMessage(m.chat, {
-            text: `${msm} Ocurrió un error: ${error.message}`,
+            text: `Ocurrió un error: ${error.message}`,
         }, { quoted: m });
     }
 };
