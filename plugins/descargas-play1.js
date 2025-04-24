@@ -1,10 +1,6 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    const emoji = '🎧'
-    const emoji2 = '❌'
-    const packname = 'Bot Musical 🎶'
-    const dev = 'By Team Code Titans'
 
     if (!text) return conn.reply(m.chat, `${emoji2} Por favor proporciona un enlace de YouTube o un texto para buscar.\n\nEjemplo:\n${usedPrefix + command} https://youtube.com/watch?v=Hx920thF8X4\n${usedPrefix + command} Amor Completo - Mon Laferte`, m)
 
@@ -69,7 +65,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['ytmp3', 'ytmusic']
 handler.tags = ['downloader']
-handler.command = ['ytmp3', 'ytmusic']
+handler.command = ['play','ytmp3', 'ytmusic']
 handler.register = true
 handler.group = true
 
