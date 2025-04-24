@@ -9,7 +9,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
         let ytUrl = text.trim()
         if (!ytUrl.includes('youtube.com') && !ytUrl.includes('youtu.be')) {
-            // 🔍 No es URL → hacemos búsqueda
             const searchURL = `https://api.sylphy.xyz/search/yt?q=${encodeURIComponent(text)}&apikey=sylph`
             const res = await fetch(searchURL)
             if (!res.ok) throw `❌ Error al buscar en YouTube (código ${res.status})`
@@ -17,10 +16,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             const json = await res.json()
             if (!json.status || !json.res?.length) throw `${emoji2} No se encontró ningún video con ese nombre.`
 
-            ytUrl = json.res[0].url // usamos el primer resultado
+            ytUrl = json.res[0].url 
         }
 
-        // 🔊 Ahora descargamos como mp3
         const apiURL = `https://api.sylphy.xyz/download/ytmp3?url=${encodeURIComponent(ytUrl)}&apikey=sylph`
         const res2 = await fetch(apiURL)
         if (!res2.ok) throw `❌ Error al descargar el audio (código ${res2.status})`
