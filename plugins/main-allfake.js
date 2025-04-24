@@ -91,12 +91,12 @@ global.packsticker = `┊ 👑 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁\n↳https://asuk
 //Fakes
 global.fkontak = { key: { participants:"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=50488198573:50488198573\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 
-global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: '@newsletter', newsletterName: "👑 . ˚ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 〢𝐀𝐬𝐮𝐤𝐚𝐁𝐨𝐭 ☆˒˒", serverMessageId: -1 }
+global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: '120363374486687514@newsletter', newsletterName: "👑 . ˚ 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 〢𝐀𝐬𝐮𝐤𝐚𝐁𝐨𝐭 ☆˒˒", serverMessageId: -1 }
 }}, { quoted: m }
 
 //Id Channel
-global.idchannel = '@newsletter'
-global.canalIdM = ["@newsletter", "@newsletter"]
+global.idchannel = '120363374486687514@newsletter'
+global.canalIdM = ["120363374486687514@newsletter", "120363374486687514@newsletter"]
 global.canalNombreM = ["✯ 𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁 - 🅲🅷🅰🅽🅽🅴🅻 ✯", "⏤͟͟͞͞𝗔𝘀𝘂𝗸𝗮𝗕𝗼𝘁"]
 global.channelRD = await getRandomChannel()
 
