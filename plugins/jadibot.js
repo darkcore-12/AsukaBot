@@ -20,13 +20,13 @@ let uniqid = `${who.split`@`[0]}`
 const path = `./${jadi}/${uniqid}`
 
 if (!await fs.existsSync(path)) {
-await conn.sendMessage(m.chat, { text: `Kirito-Bot: no hay sesión activa.\nUsa: ${usedPrefix + command}\nSi tienes ID:\n${usedPrefix + command} (ID)` }, { quoted: m })
+await conn.sendMessage(m.chat, { text: `AsukaBot: no hay sesión activa.\nUsa: ${usedPrefix + command}\nSi tienes ID:\n${usedPrefix + command} (ID)` }, { quoted: m })
 return
 }
 if (global.conn.user.jid !== conn.user.jid) {
   return conn.sendMessage(m.chat, {text: `Este comando solo funciona en el bot principal.\nLink: https://wa.me/${global.conn.user.jid.split`@`[0]}?text=${usedPrefix + command}`}, { quoted: m }) 
 } else {
-  await conn.sendMessage(m.chat, { text: `Kirito-Bot: sub-bot desconectado.` }, { quoted: m })
+  await conn.sendMessage(m.chat, { text: `AsukaBot: sub-bot desconectado.` }, { quoted: m })
 }
 try {
 fs.rmdir(`./${jadi}/` + uniqid, { recursive: true, force: true })
@@ -40,7 +40,7 @@ case isCommand2:
 if (global.conn.user.jid == conn.user.jid) {
   conn.reply(m.chat, `Solo los sub-bots pueden usar este comando.`, m)
 } else {
-  await conn.reply(m.chat, `Kirito-Bot desactivado.`, m)
+  await conn.reply(m.chat, `AsukaBot desactivado.`, m)
   conn.ws.close()
 }  
 break
