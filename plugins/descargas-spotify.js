@@ -1,52 +1,61 @@
-/* 
-- aquie de que se trata de CPF By Alex
-- Power By Team Code Titans
-- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S 
-*/
-
-// DOWNLOAD - SPOTIFY
-
 import axios from 'axios'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 
-    if (!text) return conn.reply(m.chat, `${emoji} Por favor proporciona el nombre de una canción o artista.`, m)
+    if (!text) return conn.reply(m.chat, `${emoji} Por favor proporciona el nombre de una canción o artista.\n\nEjemplo:\n${usedPrefix + command} Amor Completo - Mon Laferte`, m)
 
     try {
         m.react("🧃")
+
         let songInfo = await spotifyxv(text)
         if (!songInfo.length) throw `${emoji2} No se encontró la canción.`
+
         let song = songInfo[0]
-        const res = await fetch(`https://archive-ui.tanakadomp.biz.id/download/spotify?url=${song.url}`)
+        const apiURL = `https://api.sylphy.xyz/download/spotify?url=${encodeURIComponent(song.url)}&apikey=sylph`
+        const res = await fetch(apiURL)
 
-        if (!res.ok) throw `Error al obtener datos de la API, código de estado: ${res.status}`
+        if (!res.ok) throw `❌ Error al obtener datos de la API (código ${res.status})`
 
-        const data = await res.json().catch((e) => { 
-            console.error('Error parsing JSON:', e)
-            throw "Error al analizar la respuesta JSON."
+        const data = await res.json().catch((e) => {
+            console.error('❌ Error al analizar la respuesta JSON:', e)
+            throw "❌ Error al analizar la respuesta JSON."
         })
 
-        if (!data || !data.result || !data.result.data || !data.result.data.download) throw "No se pudo obtener el enlace de descarga."
+        const result = data?.result?.data
+        if (!result?.download) throw "❌ No se pudo obtener el enlace de descarga."
 
-        const info = `「✦」Descargando: ${data.result.data.title}\n\n> 👤 *Artista:* ${data.result.data.artis}\n> 💽 *Álbum:* ${song.album}\n> 🕒 *Duración:* ${timestamp(data.result.data.durasi)}\n> 🔗 *Enlace:* ${song.url}`
+        const info = `「✦」*Descargando: ${result.title}*\n\n> 👤 *Artista:* ${result.artis}\n> 💽 *Álbum:* ${song.album}\n> 🕒 *Duración:* ${timestamp(result.durasi)}\n> 🔗 *Enlace:* ${song.url}`
 
-        await conn.sendMessage(m.chat, { text: info, contextInfo: { forwardingScore: 9999999, isForwarded: false, 
-        externalAdReply: {
-            showAdAttribution: true,
-            containsAutoReply: true,
-            renderLargerThumbnail: true,
-            title: packname,
-            body: dev,
-            mediaType: 1,
-            thumbnailUrl: data.result.data.image,
-            mediaUrl: data.result.data.download,
-            sourceUrl: data.result.data.download
-        }}}, { quoted: m })
+        await conn.sendMessage(m.chat, {
+            text: info,
+            contextInfo: {
+                forwardingScore: 999999,
+                isForwarded: false,
+                externalAdReply: {
+                    showAdAttribution: true,
+                    containsAutoReply: true,
+                    renderLargerThumbnail: true,
+                    title: packname,
+                    body: dev,
+                    mediaType: 1,
+                    thumbnailUrl: result.image,
+                    mediaUrl: result.download,
+                    sourceUrl: result.download
+                }
+            }
+        }, { quoted: m })
 
-        conn.sendMessage(m.chat, { audio: { url: data.result.data.download }, fileName: `${data.result.data.title}.mp3`, mimetype: 'audio/mp4', ptt: true }, { quoted: m })
-    } catch (e1) {
-        m.reply(`${e1.message || e1}`)
+        await conn.sendMessage(m.chat, {
+            audio: { url: result.download },
+            fileName: `${result.title}.mp3`,
+            mimetype: 'audio/mp4',
+            ptt: true
+        }, { quoted: m })
+
+    } catch (err) {
+        console.error(err)
+        m.reply(typeof err === 'string' ? err : err.message || '❌ Ocurrió un error inesperado.')
     }
 }
 
