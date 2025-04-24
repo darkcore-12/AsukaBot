@@ -66,10 +66,10 @@ global.photoSity = [catalogo]
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.gp1 = 'https://chat.whatsapp.com/'
-global.comunidad1 = 'https://chat.whatsapp.com/'
-global.channel = 'https://whatsapp.com/channel/'
-global.channel2 = 'https://whatsapp.com/channel/'
+global.gp1 = 'https://chat.whatsapp.com/LdkHiLrfFIDKFSjWbZvgkZ'
+global.comunidad1 = 'https://chat.whatsapp.com/LdkHiLrfFIDKFSjWbZvgkZ'
+global.channel = 'https://www.whatsapp.com/channel/0029Vaxk8vvEFeXdzPKY8f3F'
+global.channel2 = 'https://www.whatsapp.com/channel/0029Vaxk8vvEFeXdzPKY8f3F'
 global.md = 'https://github.com/'
 global.correo = ''
 global.cn ='https://whatsapp.com/channel/';
@@ -79,7 +79,7 @@ global.cn ='https://whatsapp.com/channel/';
 global.catalogo = fs.readFileSync('./src/logo.jpg');
 global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "0@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: packname, orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}}
 global.ch = {
-ch1: '@newsletter',
+ch1: '120363374486687514@newsletter',
 }
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
