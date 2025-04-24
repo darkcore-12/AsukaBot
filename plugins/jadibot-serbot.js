@@ -124,7 +124,7 @@ if (store) {
 //const msg = store.loadMessage(key.remoteJid, key.id)
 //return msg.message && undefined
 } return {
-conversation: 'kirito-Bot MD',
+conversation: 'AsukaBot',
 }}} 
 
 let sock = makeWASocket(connectionOptions)
