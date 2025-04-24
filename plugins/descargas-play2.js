@@ -1,11 +1,6 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    const emoji = '🎥'
-    const emoji2 = '❌'
-    const packname = 'Bot Video 🎬'
-    const dev = 'By Team Code Titans'
-
     if (!text) return conn.reply(m.chat, `${emoji2} Por favor proporciona un enlace de YouTube o un texto para buscar.\n\nEjemplo:\n${usedPrefix + command} https://youtube.com/watch?v=Hx920thF8X4\n${usedPrefix + command} Amor Completo - Mon Laferte`, m)
 
     try {
@@ -13,7 +8,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
         let ytUrl = text.trim()
         if (!ytUrl.includes('youtube.com') && !ytUrl.includes('youtu.be')) {
-            // 🔍 No es URL → hacemos búsqueda
             const searchURL = `https://api.sylphy.xyz/search/yt?q=${encodeURIComponent(text)}&apikey=sylph`
             const res = await fetch(searchURL)
             if (!res.ok) throw `❌ Error al buscar en YouTube (código ${res.status})`
@@ -21,10 +15,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             const json = await res.json()
             if (!json.status || !json.res?.length) throw `${emoji2} No se encontró ningún video con ese nombre.`
 
-            ytUrl = json.res[0].url // usamos el primer resultado
+            ytUrl = json.res[0].url
         }
 
-        // 🔴 Ahora descargamos el video como mp4
         const apiURL = `https://api.sylphy.xyz/download/ytmp4?url=${encodeURIComponent(ytUrl)}&apikey=sylph`
         const res2 = await fetch(apiURL)
         if (!res2.ok) throw `❌ Error al descargar el video (código ${res2.status})`
