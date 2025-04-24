@@ -1,39 +1,38 @@
 import axios from 'axios';
-import cheerio from 'cheerio';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) {
-    return conn.reply(m.chat, `${emoji} por favor, ingresa un enlace de *Mediafire*.`, m);
+    return conn.reply(m.chat, `📥 Por favor, ingresa un enlace de *Mediafire*.`, m);
   }
   
   await m.react('🕓');
   
   let url = args[0];
   if (!url.includes('mediafire.com')) {
-    return conn.reply(m.chat, `${emoji2} El enlace proporcionado no parece ser de MediaFire.`, m);
+    return conn.reply(m.chat, `❌ El enlace proporcionado no parece ser de MediaFire.`, m);
   }
 
   try {
-    const apiUrl = `https://api.siputzx.my.id/api/d/mediafire?url=${encodeURIComponent(url)}`;
+    const apiUrl = `https://api.sylphy.xyz/download/mediafire?url=${encodeURIComponent(url)}&apikey=sylph`;
     const response = await axios.get(apiUrl);
     
     if (!response.data.status || !response.data.data) {
       throw new Error('No se pudo obtener la información del archivo.');
     }
 
-    const { fileName, downloadLink, fileSize, meta } = response.data.data;
+    const { filename, size, download } = response.data.data;
     
     let text = '`乂  M E D I A F I R E - D O W N L O A D`\n\n';
-    text += `📄 *Título* » ${fileName}\n`;
-    text += `🗂️ *Tamaño* » ${fileSize}\n`;
-    text += `🔗 *Enlace* » ${downloadLink}\n`;
+    text += `📄 *Título* » ${filename}\n`;
+    text += `🗂️ *Tamaño* » ${size}\n`;
+    text += `🔗 *Enlace de descarga* » ${download}\n`;
 
     await conn.reply(m.chat, text, m);
 
-    const fileBuffer = (await axios.get(downloadLink, { responseType: 'arraybuffer' })).data;
+    const fileBuffer = (await axios.get(download, { responseType: 'arraybuffer' })).data;
     await conn.sendMessage(
       m.chat,
-      { document: fileBuffer, fileName: fileName, mimetype: 'application/octet-stream' },
+      { document: fileBuffer, fileName: filename, mimetype: 'application/octet-stream' },
       { quoted: m }
     );
     
