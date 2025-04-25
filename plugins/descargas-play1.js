@@ -93,7 +93,7 @@ const ddownr = {
 
     const config = {
       method: "GET",
-      url: `https://p.oceansaver.in/ajax/download.php?format=${format}&url=${encodeURIComponent(url)}&api=dfcb6d76f2f6a9894gjkege8a4ab232222`, // Reemplaza por variable de entorno si puedes
+      url: `https://p.oceansaver.in/ajax/download.php?format=${format}&url=${encodeURIComponent(url)}&api=dfcb6d76f2f6a9894gjkege8a4ab232222`,
       headers: {
         "User-Agent": "Mozilla/5.0"
       }
@@ -179,12 +179,17 @@ const handler = async (m, { conn, text }) => {
 
     await conn.reply(m.chat, infoMessage, m, JT);
 
-
+    // AQUÍ está el fix
     const result = await ddownr.download(url, "mp3");
 
+    const res = await fetch(result.downloadUrl);
+    const buffer = await res.buffer();
+
     await conn.sendMessage(m.chat, {
-      text: `✅ *Tu descarga está lista:*\n\n🎧 *${result.title}*\n🔗 ${result.downloadUrl}`,
-      contextInfo: JT.contextInfo
+      audio: buffer,
+      mimetype: 'audio/mpeg',
+      fileName: `${result.title}.mp3`,
+      ptt: false
     }, { quoted: m });
 
   } catch (error) {
@@ -193,8 +198,8 @@ const handler = async (m, { conn, text }) => {
   }
 };
 
-handler.help = ['ytmp3 <nombre del video>','play <nombre del video>'];
-handler.tags = ['downloader'];
-handler.command = ['play','ytmp3', 'ytaudio'];
-export default handler;
+handler.help = ['ytmp3 <nombre del video>'];
+handler.command = ['ytmp3', 'ytaudio'];
+handler.tags = ['descargas'];
 
+export default handler;
