@@ -64,15 +64,31 @@ let handler = async (m, { conn, text }) => {
   }
 
   try {
+    await m.react('🕓');
     const search = await yts(text);
     if (!search.all.length) {
       return m.reply("⚠ No se encontraron resultados para tu búsqueda.");
     }
 
     const videoInfo = search.all[0];
-    const { title, url } = videoInfo;
+    const { title, url, thumbnail, timestamp, views, ago, author } = videoInfo;
 
     const audio = await ddownr.download(url, "mp3");
+    
+    const infoMessage = `🫆 \`AsukaBot - Descargas\`\n\n` +
+      `*✦ Título:* ${title}\n` +
+      `*✰ Duración:* ${timestamp || "Desconocida"}\n` +
+      `*✰ Vistas:* ${views?.toLocaleString("es-ES") || "0"}\n` +
+      `*✰ Canal:* ${author?.name || "Desconocido"}\n` +
+      `*✰ Publicado:* ${ago || "Hace poco"}\n` +
+      `*∞ Enlace:* ${url}`;
+
+    await conn.sendMessage(m.chat, { text: infoMessage }, { quoted: m });
+    
+    await conn.sendMessage(m.chat, {
+      image: { url: audio.image },
+      caption: `🎵 *${audio.title}*`
+    }, { quoted: m });
 
     await conn.sendMessage(m.chat, {
       audio: { url: audio.downloadUrl },
@@ -81,14 +97,16 @@ let handler = async (m, { conn, text }) => {
       ptt: false
     }, { quoted: m });
 
+    await m.react('✅');
+
   } catch (error) {
     console.error("❌ Error:", error);
     return m.reply(`⚠ Ocurrió un error: ${error.message}`);
   }
 };
 
-handler.command = ['play'];
-handler.help = ['play <nombre de la canción>'];
+handler.command = ['play', 'ytmp3', 'ytmusic'];
+handler.help = ['play <nombre de la canción>', 'ytmp3 <nombre de la canción>'];
 handler.tags = ['downloader'];
 
 export default handler;
