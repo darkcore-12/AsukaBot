@@ -78,65 +78,9 @@ function getVideoID(url) {
 
 import fetch from "node-fetch";
 import yts from "yt-search";
-import axios from "axios";
-
-const formatAudio = ["mp3", "m4a", "webm", "acc", "flac", "opus", "ogg", "wav"];
-const formatVideo = ["360", "480", "720", "1080", "1440", "4k"];
+import ytdl from "ytdl-core";
 
 const formatViews = (views) => views?.toLocaleString("es-ES") || "0";
-
-const ddownr = {
-  download: async (url, format) => {
-    if (!formatAudio.includes(format) && !formatVideo.includes(format)) {
-      throw new Error("⚠ Formato no soportado. Usa uno de la lista permitida.");
-    }
-
-    const config = {
-      method: "GET",
-      url: `https://p.oceansaver.in/ajax/download.php?format=${format}&url=${encodeURIComponent(url)}&api=dfcb6d76f2f6a9894gjkege8a4ab232222`,
-      headers: {
-        "User-Agent": "Mozilla/5.0"
-      }
-    };
-
-    try {
-      const response = await axios.request(config);
-      if (response.data?.success) {
-        const { id, title, info } = response.data;
-        const downloadUrl = await ddownr.cekProgress(id);
-        return { id, title, image: info.image, downloadUrl };
-      } else {
-        throw new Error("⛔ No se pudo obtener los detalles del video.");
-      }
-    } catch (error) {
-      console.error("❌ Error en download:", error);
-      throw error;
-    }
-  },
-
-  cekProgress: async (id) => {
-    const config = {
-      method: "GET",
-      url: `https://p.oceansaver.in/ajax/progress.php?id=${id}`,
-      headers: {
-        "User-Agent": "Mozilla/5.0"
-      }
-    };
-
-    try {
-      while (true) {
-        const response = await axios.request(config);
-        if (response.data?.success && response.data.progress === 1000) {
-          return response.data.download_url;
-        }
-        await new Promise(resolve => setTimeout(resolve, 5000));
-      }
-    } catch (error) {
-      console.error("❌ Error en cekProgress:", error);
-      throw error;
-    }
-  }
-};
 
 const handler = async (m, { conn, text }) => {
   try {
@@ -179,22 +123,27 @@ const handler = async (m, { conn, text }) => {
 
     await conn.reply(m.chat, infoMessage, m, JT);
 
-    // AQUÍ está el fix
-    const result = await ddownr.download(url, "mp3");
+    const audioStream = ytdl(url, {
+      filter: 'audioonly',
+      quality: 'highestaudio'
+    });
 
-    const res = await fetch(result.downloadUrl);
-    const buffer = await res.buffer();
+    let chunks = [];
+    for await (const chunk of audioStream) {
+      chunks.push(chunk);
+    }
+    const buffer = Buffer.concat(chunks);
 
     await conn.sendMessage(m.chat, {
       audio: buffer,
       mimetype: 'audio/mpeg',
-      fileName: `${result.title}.mp3`,
+      fileName: `${title}.mp3`,
       ptt: false
     }, { quoted: m });
 
   } catch (error) {
-    console.error("❌ Error general:", error);
-    await conn.reply(m.chat, "⛔ Ocurrió un error al procesar tu solicitud.", m);
+    console.error("Error general:", error);
+    await conn.reply(m.chat, "Ocurrió un error al procesar tu solicitud.", m);
   }
 };
 
@@ -203,3 +152,4 @@ handler.command = ['ytmp3', 'ytaudio'];
 handler.tags = ['descargas'];
 
 export default handler;
+
