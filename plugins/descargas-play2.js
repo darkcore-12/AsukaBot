@@ -2,22 +2,44 @@ import fetch from "node-fetch";
 import yts from "yt-search";
 
 let handler = async (m, { conn, text, command }) => {
- if (!text) return conn.reply(m.chat, `${emoji2} Por favor proporciona un enlace de YouTube o un texto para buscar.`, m)
+  if (!text) return conn.reply(m.chat, `⚔️ Por favor proporciona un enlace de YouTube o un texto para buscar.`, m);
+
   try {
     await m.react('🕓');
 
-    // Buscar en YouTube
     const search = await yts(text);
     if (!search.all.length) {
       return m.reply("⚠ No se encontraron resultados para tu búsqueda.");
     }
 
     const videoInfo = search.all[0];
-    const { title, url, thumbnail } = videoInfo;
+    const { title, url, thumbnail, timestamp, views, ago, author } = videoInfo;
     const thumb = (await conn.getFile(thumbnail))?.data;
+    const vistas = views?.toLocaleString('es-ES') || '0';
+
+    const info = `🎵 *Título:* ${title}\n` +
+                 `⏳ *Duración:* ${timestamp}\n` +
+                 `📈 *Vistas:* ${vistas}\n` +
+                 `📺 *Canal:* ${author?.name || 'Desconocido'}\n` +
+                 `🗓️ *Publicado:* ${ago}\n` +
+                 `🔗 *Enlace:* ${url}`;
+
+    await conn.sendMessage(m.chat, {
+      text: info,
+      contextInfo: {
+        externalAdReply: {
+          title: "Descargando Video 📥",
+          body: "AsukaBot | WhatsApp Bot",
+          mediaUrl: url,
+          sourceUrl: url,
+          thumbnail: thumb,
+          mediaType: 1,
+          renderLargerThumbnail: true
+        }
+      }
+    }, { quoted: m });
 
     if (["play2", "ytv", "ytmp4"].includes(command)) {
-
       const sources = [
         `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`,
         `https://api.zenkey.my.id/api/download/ytmp4?apikey=zenkey&url=${url}`,
@@ -76,4 +98,3 @@ handler.help = ['play2 <nombre>', 'ytv <nombre>', 'ytmp4 <nombre>'];
 handler.tags = ['downloader'];
 
 export default handler;
-
