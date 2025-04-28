@@ -1,74 +1,79 @@
-import fetch from 'node-fetch'
+import fetch from "node-fetch";
+import yts from "yt-search";
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return conn.reply(m.chat, `${emoji2} Por favor proporciona un enlace de YouTube o un texto para buscar.\n\nEjemplo:\n${usedPrefix + command} https://youtube.com/watch?v=Hx920thF8X4\n${usedPrefix + command} Amor Completo - Mon Laferte`, m)
+let handler = async (m, { conn, text, command }) => {
+ if (!text) return conn.reply(m.chat, `${emoji2} Por favor proporciona un enlace de YouTube o un texto para buscar.`, m)
+  try {
+    await m.react('🕓');
 
-    try {
-        m.react("🧃")
-
-        let ytUrl = text.trim()
-        if (!ytUrl.includes('youtube.com') && !ytUrl.includes('youtu.be')) {
-            const searchURL = `https://api.sylphy.xyz/search/yt?q=${encodeURIComponent(text)}&apikey=sylph`
-            const res = await fetch(searchURL)
-            if (!res.ok) throw `❌ Error al buscar en YouTube (código ${res.status})`
-
-            const json = await res.json()
-            if (!json.status || !json.res?.length) throw `${emoji2} No se encontró ningún video con ese nombre.`
-
-            ytUrl = json.res[0].url
-        }
-
-        const apiURL = `https://api.sylphy.xyz/download/ytmp4?url=${encodeURIComponent(ytUrl)}&apikey=sylph`
-        const res2 = await fetch(apiURL)
-        if (!res2.ok) throw `❌ Error al descargar el video (código ${res2.status})`
-
-        const json2 = await res2.json()
-        if (!json2.status || !json2.res?.download) throw `${emoji2} No se pudo obtener el enlace de descarga.`
-
-        const video = json2.res
-        const info = `「✦」*Descargando desde YouTube*\n\n> 🎥 *Título:* ${video.title}\n> 📁 *Formato:* ${video.format}\n> 🗂️ *Calidad:* ${video.quality}\n> 🕒 *Duración:* ${video.duration}\n> 🔗 *URL:* ${ytUrl}`
-
-        await conn.sendMessage(m.chat, {
-            text: info,
-            contextInfo: {
-                forwardingScore: 999999,
-                isForwarded: false,
-                externalAdReply: {
-                    showAdAttribution: true,
-                    containsAutoReply: true,
-                    renderLargerThumbnail: true,
-                    title: video.title,
-                    body: dev,
-                    mediaType: 1,
-                    thumbnailUrl: video.thumbnail,
-                    mediaUrl: ytUrl,
-                    sourceUrl: ytUrl
-                }
-            }
-        }, { quoted: m })
-
-        await conn.sendMessage(m.chat, {
-            video: { url: video.download },
-            fileName: `${video.title}.mp4`,
-            mimetype: 'video/mp4'
-        }, { quoted: m })
-
-    } catch (err) {
-        console.error(err)
-        m.reply(typeof err === 'string' ? err : err.message || '❌ Ocurrió un error inesperado.')
+    // Buscar en YouTube
+    const search = await yts(text);
+    if (!search.all.length) {
+      return m.reply("⚠ No se encontraron resultados para tu búsqueda.");
     }
-}
 
-handler.help = ['ytmp4', 'ytvideo']
-handler.tags = ['downloader']
-handler.command = ['play2', 'ytmp4', 'ytvideo']
-handler.register = true
-handler.group = true
+    const videoInfo = search.all[0];
+    const { title, url, thumbnail } = videoInfo;
+    const thumb = (await conn.getFile(thumbnail))?.data;
 
-export default handler
+    if (["play2", "ytv", "ytmp4"].includes(command)) {
 
-// Función para extraer el ID del video de una URL de YouTube
-function getVideoID(url) {
-    let match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/)
-    return match ? match[1] : 'default'
-}
+      const sources = [
+        `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`,
+        `https://api.zenkey.my.id/api/download/ytmp4?apikey=zenkey&url=${url}`,
+        `https://axeel.my.id/api/download/video?url=${encodeURIComponent(url)}`,
+        `https://delirius-apiofc.vercel.app/download/ytmp4?url=${url}`
+      ];
+
+      let success = false;
+
+      for (let source of sources) {
+        try {
+          const res = await fetch(source);
+          const json = await res.json();
+
+          const downloadUrl = json?.data?.dl 
+                           || json?.result?.download?.url 
+                           || json?.downloads?.url 
+                           || json?.data?.download?.url;
+
+          if (downloadUrl) {
+            success = true;
+
+            await conn.sendMessage(m.chat, {
+              video: { url: downloadUrl },
+              mimetype: "video/mp4",
+              fileName: `${title}.mp4`,
+              caption: "⚔ Aquí tienes tu video descargado por *AsukaBot* ⚔",
+              thumbnail: thumb
+            }, { quoted: m });
+
+            await m.react('✅');
+            break;
+          }
+        } catch (e) {
+          console.error(`⚠ Error con la fuente ${source}:`, e.message);
+        }
+      }
+
+      if (!success) {
+        await conn.reply(m.chat, "⛔ No se pudo descargar el video, intenta de nuevo más tarde.", m);
+        await m.react('❌');
+      }
+
+    } else {
+      return m.reply("⚠ Comando no reconocido para descarga de video.");
+    }
+
+  } catch (error) {
+    console.error("❌ Error general:", error);
+    await conn.reply(m.chat, "Ocurrió un error al procesar tu solicitud.", m);
+  }
+};
+
+handler.command = ['play2', 'ytv', 'ytmp4'];
+handler.help = ['play2 <nombre>', 'ytv <nombre>', 'ytmp4 <nombre>'];
+handler.tags = ['downloader'];
+
+export default handler;
+
