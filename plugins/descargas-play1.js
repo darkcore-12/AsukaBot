@@ -84,11 +84,6 @@ let handler = async (m, { conn, text }) => {
       `*∞ Enlace:* ${url}`;
 
     await conn.sendMessage(m.chat, { text: infoMessage }, { quoted: m });
-    
-    await conn.sendMessage(m.chat, {
-      image: { url: audio.image },
-      caption: `🎵 *${audio.title}*`
-    }, { quoted: m });
 
     await conn.sendMessage(m.chat, {
       audio: { url: audio.downloadUrl },
