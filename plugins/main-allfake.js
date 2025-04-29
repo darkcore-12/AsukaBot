@@ -45,7 +45,7 @@ global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => '
 global.rwait = '🕒'
 global.done = '✅'
 global.error = '✖️'
-
+global.msm = '✖️'
 
 global.emoji = '*❛‿˂̵✧*'
 global.emoji2 = '*（＾∀＾●）ﾉｼ*'
