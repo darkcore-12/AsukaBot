@@ -60,7 +60,7 @@ const ddownr = {
 let handler = async (m, { conn, text }) => {
 
   if (!text.trim()) {
-    return conn.reply(m.chat, "⚔️ *AsukaBot* | Ingresa el nombre de la canción que deseas buscar.", m);
+    return conn.reply(m.chat, "🌸ꗥ～ꗥ🌸 𝐈𝐧𝐠𝐫𝐞𝐬𝐚 𝐞𝐥 𝐧𝐨𝐦𝐛𝐫𝐞 𝐝𝐞 𝐥𝐚 𝐜𝐚𝐧𝐜𝐢ó𝐧 𝐪𝐮𝐞 𝐝𝐞𝐬𝐞𝐚𝐬 𝐛𝐮𝐬𝐜𝐚𝐫. 🌸ꗥ～ꗥ🌸", m);
   }
 
   try {
