@@ -2,11 +2,11 @@ import fetch from 'node-fetch';
 
 var handler = async (m, { conn, args, usedPrefix, command }) => {
     if (!args[0]) {
-        return conn.reply(m.chat, `${emoji} Por favor, ingresa un enlace de TikTok.`, m);
+        return conn.reply(m.chat, `${emoji} 🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐢𝐧𝐠𝐫𝐞𝐬𝐚 𝐮𝐧 𝐞𝐧𝐥𝐚𝐜𝐞 𝐝𝐞 𝐓𝐢𝐤𝐓𝐨𝐤～ꗥ🌸`, m);
     }
 
     try {
-        await conn.reply(m.chat, `${emoji} Espere un momento, estoy descargando su video...`, m);
+        await conn.reply(m.chat, `${emoji} ꗥ～𝐄𝐬𝐩𝐞𝐫𝐞 𝐮𝐧 𝐦𝐨𝐦𝐞𝐧𝐭𝐨, 𝐞𝐬𝐭𝐨𝐲 𝐝𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐧𝐝𝐨 𝐬𝐮 𝐯𝐢𝐝𝐞𝐨..`, m);
 
         const tiktokData = await tiktokdl(args[0]);
 
