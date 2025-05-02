@@ -27,6 +27,8 @@ const handler = async (m, { conn, command, text }) => {
 };
 
 handler.command = ['chupalo', 'chupa', 'aplauso', 'negro', 'marron', 'suicidar', 'suicide']
+handler.help = ['chupalo', 'chupa', 'aplauso', 'negro', 'marron', 'suicidar', 'suicide']
+handler.tag = ['fun']
 handler.group = true
 handler.register = true
 
