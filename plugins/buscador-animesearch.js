@@ -64,8 +64,8 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
 }
 
 handler.help = ['animes', 'animesearch', 'animess'];
-handler.command = ['animes', 'animesearch', 'animess'];
-handler.tags = ['buscador'];
+handler.tags = ['search'];
+handler.command = ['animesearch <text>'];
 handler.group = true;
 
 export default handler;
