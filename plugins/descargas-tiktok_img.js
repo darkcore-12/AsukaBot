@@ -5,7 +5,7 @@ import axios from 'axios';
 import cheerio from 'cheerio';
 
 let handler = async (m, { conn, text, args, command, usedPrefix }) => {
-    if (!text) throw m.reply(`${emoji} Por favor, ingresa el link de la imagen de tiktok a descargar.`)
+    if (!text) throw m.reply(`${emoji} 🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐢𝐧𝐠𝐫𝐞𝐬𝐚 𝐞𝐥 𝐥𝐢𝐧𝐤 𝐝𝐞 𝐥𝐚 𝐢𝐦𝐚𝐠𝐞𝐧 𝐝𝐞 𝐭𝐢𝐤𝐭𝐨𝐤 𝐚 𝐝𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐫～ꗥ🌸`)
 
     let mainUrl = `https://dlpanda.com/id?url=${text}&token=G7eRpMaa`;
     let backupUrl = `https://dlpanda.com/id?url=${text}&token51=G32254GLM09MN89Maa`;
