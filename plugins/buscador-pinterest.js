@@ -5,7 +5,7 @@ import cheerio from 'cheerio';
 const { generateWAMessageContent, generateWAMessageFromContent, proto} = pkg;
 
 let handler = async (m, { conn, text, args }) => {
-  if (!text) return m.reply(`🌸ꗥ～𝐈𝐧𝐠𝐫𝐞𝐬𝐚 𝐮𝐧 𝐭𝐞𝐱𝐭𝐨. 𝐄𝐣𝐞𝐦𝐩𝐥𝐨: .𝐩𝐢𝐧𝐭𝐞𝐫𝐞𝐬𝐭 𝐒𝐲𝐥𝐩𝐡𝐢𝐞𝐭𝐭𝐞～ꗥ🌸`);
+  if (!text) return m.reply(`🌸ꗥ～𝐈𝐧𝐠𝐫𝐞𝐬𝐚 𝐮𝐧 𝐭𝐞𝐱𝐭𝐨.\n 𝐄𝐣𝐞𝐦𝐩𝐥𝐨: #𝐩𝐢𝐧𝐭𝐞𝐫𝐞𝐬𝐭 𝐒𝐲𝐥𝐩𝐡𝐢𝐞𝐭𝐭𝐞～ꗥ🌸`);
 
   try {
     if (text.includes("https://")) {
