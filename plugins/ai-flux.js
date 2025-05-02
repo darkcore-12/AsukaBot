@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) return conn.reply(m.chat, `${emoji} Por favor, ingresé un termino para generar una imagen.`, m)
+  if (!text) return conn.reply(m.chat, `${emoji} 🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐢𝐧𝐠𝐫𝐞𝐬é 𝐮𝐧 𝐭𝐞𝐫𝐦𝐢𝐧𝐨 𝐩𝐚𝐫𝐚 𝐠𝐞𝐧𝐞𝐫𝐚𝐫 𝐮𝐧𝐚 𝐢𝐦𝐚𝐠𝐞𝐧～ꗥ🌸`, m)
   await m.react('🕓')
 
   try {
