@@ -23,6 +23,6 @@ console.error(error)
 }}
 
 handler.command = ['cuevanasearch', 'cuevana']
-handler.tag = ['']
+handler.tag = ['buscador']
 handler.help = ['cuevanasearch <text>']
 export default handler
