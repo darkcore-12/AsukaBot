@@ -104,7 +104,7 @@ let handler = async (m, { conn, text, args }) => {
 
 handler.help = ['pinterest'];
 handler.command = ['pinterest', 'pin'];
-handler.tags = ['dl'];
+handler.tags = ['search'];
 export default handler;
 
 // Función para descarga directa (imagen/video desde un enlace)
