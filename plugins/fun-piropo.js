@@ -11,10 +11,8 @@ handler.help = ['piropo']
 handler.tags = ['fun']
 handler.command = ['piropo']
 handler.fail = null
-handler.exp = 0
+handler.exp = 20
 handler.group = true;
-handler.register = true
-
 export default handler
 
 let hasil = Math.floor(Math.random() * 5000)
