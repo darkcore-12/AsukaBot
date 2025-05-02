@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) return m.reply(`${emoji} Por favor, ingresa un enlace de *Terabox*.`);
+  if (!text) return m.reply(`${emoji} 🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐢𝐧𝐠𝐫𝐞𝐬𝐚 𝐮𝐧 𝐞𝐧𝐥𝐚𝐜𝐞 𝐝𝐞 𝐓𝐞𝐫𝐚𝐛𝐨𝐱～ꗥ🌸`);
   await m.react('🕓');
 
   try {
