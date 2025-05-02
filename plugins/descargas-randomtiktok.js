@@ -22,9 +22,6 @@ handler.tags = ['descargas']
 handler.command = ['ttrandom', 'tiktokrandom']
 handler.limit = true 
 handler.group = true;
-handler.register = true;
-handler.coin = 2;
-
 export default handler
 
 async function tiktoks(query) {
