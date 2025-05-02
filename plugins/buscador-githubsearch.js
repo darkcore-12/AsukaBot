@@ -1,8 +1,3 @@
-/* Github Search By WillZek 
-- Free Codes Titan  
-- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
-*/
-
 // 𝗚𝗶𝘁𝗵𝘂𝗯 𝗦𝗲𝗮𝗿𝗰𝗵
 
 import fetch from 'node-fetch';
@@ -32,5 +27,6 @@ m.react('✖️');
 };
 
 handler.command = ['githubsearch', 'gbsearch'];
-
+handler.help = ['githubsearch < usuario >'];
+handler.tags = ['buscador'];
 export default handler;
