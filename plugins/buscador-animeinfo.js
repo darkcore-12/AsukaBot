@@ -1,7 +1,3 @@
-/* Código hecho por I'm Fz `
- - https/Github.com/FzTeis
-*/
-
 import axios from 'axios';
 import cheerio from 'cheerio';
 
@@ -84,8 +80,8 @@ let handler = async (m, { conn, command, args, text, usedPrefix }) => {
 }
 
 handler.help = ['animeinfo', 'animei'];
-handler.command = ['animeinfo', 'animei'];
-handler.tags = ['descargas'];
+handler.tags = ['search'];
+handler.command = ['animeinfo <text>'];
 handler.group = true;
 
 export default handler;
