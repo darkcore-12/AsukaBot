@@ -1,4 +1,4 @@
-import axios from 'axios'
+/*import axios from 'axios'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
@@ -99,3 +99,4 @@ function timestamp(time) {
     const seconds = Math.floor((time % 60000) / 1000)
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 }
+*/
