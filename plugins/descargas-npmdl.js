@@ -57,10 +57,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 };
 
 handler.help = ["npmdl"];
-handler.tags = ["descargas"];
+handler.tags = ['downloader']
 handler.command = ["npmdownloader", "npmdownload", "npmpkgdownloader", "npmpkgdownload", "npmdl", "npmd"];
 handler.group = false;
-handler.register = true;
-handler.coin = 5;
-
 export default handler;
