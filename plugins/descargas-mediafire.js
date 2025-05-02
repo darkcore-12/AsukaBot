@@ -44,10 +44,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 };
 
 handler.help = ['mediafire *<url>*'];
-handler.tags = ['dl'];
+handler.tags = ['downloader']
 handler.command = ['mediafire'];
 handler.group = true;
-handler.register = true;
-handler.coin = 10;
-
 export default handler;
