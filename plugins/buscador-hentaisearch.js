@@ -20,8 +20,13 @@ ${i+1}. *_${v.title}_*
   }
   conn.sendFile(m.chat, randomThumbnail, 'error.jpg', teks, m);
 };
+
 handler.command = ['searchhentai', 'hentaisearch']
+handler.tag = ['searchhentai']
+handler.help = ['searchhentai <text>']
 export default handler;
+
+
 async function searchHentai(search) {
   return new Promise((resolve, reject) => {
     axios.get('https://hentai.tv/?s=' + search).then(async ({data}) => {
