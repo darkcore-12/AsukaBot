@@ -22,7 +22,7 @@ ${i+1}. *_${v.title}_*
 };
 
 handler.command = ['searchhentai', 'hentaisearch']
-handler.tag = ['searchhentai']
+handler.tag = ['buscador']
 handler.help = ['searchhentai <text>']
 export default handler;
 
