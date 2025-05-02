@@ -1,7 +1,3 @@
-/* 
-- Flux Ai Imagen By Angel-OFC 
-- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
-*/
 import axios from "axios";
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
