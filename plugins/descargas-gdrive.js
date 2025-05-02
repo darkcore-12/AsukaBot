@@ -45,10 +45,7 @@ ${isLimit ? `\n✧ ${mssg.limitdl} *+${free} MB* ${mssg.limitdlTe} *${prem} MB*`
 }
 
 handler.help = ['gdrive'];
-handler.tags = ['descargas'];
+handler.tags = ['downloader'];
 handler.command = ['gdrive', 'drive'];
 handler.group = true;
-handler.register = true;
-handler.coin = 5;
-
 export default handler;
