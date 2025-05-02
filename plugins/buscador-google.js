@@ -34,5 +34,6 @@ m.react('✅')
 };
 
 handler.command = ['google'];
-
+handler.tag = ['buscador']
+handler.help = ['google <text>']
 export default handler;
