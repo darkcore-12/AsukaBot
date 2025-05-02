@@ -54,15 +54,15 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (chat.welcome) {
     if (m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_ADD) {
       let bienvenida = `┏━━━━━━━━━━━━━━━━┅┈
-┃      🄱🄸🄴🄽🅅🄴🄽🄸🄳🄾
+┃    ◤✞ 𝖇𝖎𝖊𝖓𝖛𝖊𝖓𝖎𝖉𝖔𝖘 ✞◥
 ┣━━━━━━━━━━━━━━━━┅┈
-┃ 𝗨𝘀𝘂𝗮𝗿𝗶𝗼: ${taguser}
+┃ 𝚄𝚜𝚞𝚊𝚛𝚒𝚘: ${taguser}
 ┃
-┃ 𝗚𝗿𝗨𝗽𝗢: ${groupMetadata.subject}
+┃ 𝚐𝚛𝚞𝚙𝚘: ${groupMetadata.subject}
 ┃
-┃ 𝗠𝗶𝗲𝗺𝗯𝗿𝗼𝘀: ${totalMembers + 1}
+┃ 𝚖𝚒𝚎𝚗𝚋𝚛𝚘𝚜: ${totalMembers + 1}
 ┃
-┃ 𝗙𝗲𝗰𝗵𝗮: ${date}
+┃ 𝚏𝚎𝚌𝚑𝚊: ${date}
 ┃
 ┗━━━━━━━━━━━━━━━━┅┈
 
@@ -74,15 +74,15 @@ ${fraseRandomBienvenida}`
     if (m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_LEAVE ||
         m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_REMOVE) {
       let despedida = `┏━━━━━━━━━━━━━━━━┅┈
-┃       🄱.    🄰.    🅈.
+┃     ◤✞ 𝖉𝖊𝖘𝖕𝖊𝖉𝖎𝖉𝖆 ✞◥
 ┣━━━━━━━━━━━━━━━━┅┈
-┃ 𝗨𝘀𝘂𝗮𝗿𝗶𝗼: ${taguser}
+┃ 𝚄𝚜𝚞𝚊𝚛𝚒𝚘: ${taguser}
 ┃
-┃ 𝗚𝗿𝗨𝗽𝗢: ${groupMetadata.subject}
+┃ 𝚐𝚛𝚞𝚙𝚘: ${groupMetadata.subject}
 ┃
-┃ 𝗠𝗶𝗲𝗺𝗯𝗿𝗼𝘀: ${totalMembers - 1}
+┃ 𝚖𝚒𝚎𝚗𝚋𝚛𝚘𝚜: ${totalMembers - 1}
 ┃
-┃ 𝗙𝗲𝗰𝗵𝗮: ${date}
+┃ 𝚏𝚎𝚌𝚑𝚊: ${date}
 ┃
 ┗━━━━━━━━━━━━━━━━┅┈
 > Frase de despedida
