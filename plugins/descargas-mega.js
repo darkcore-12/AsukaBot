@@ -38,12 +38,9 @@ let handler = async (m, { conn, args, usedPrefix, text, command }) => {
 }
 
 handler.help = ["mega"];
-handler.tags = ["descargas"];
+handler.tags = ['downloader']
 handler.command = ['mega', 'mg']
 handler.group = true;
-handler.register = true;
-handler.coin = 5;
-
 export default handler;
 
 function formatBytes(bytes) {
