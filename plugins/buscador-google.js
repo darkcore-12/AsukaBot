@@ -24,7 +24,7 @@ let handler = async (m, { text }) => {
       replyMessage += `🔗 URL: ${item.url}`;
     });
 
-m.react('✅')
+   m.react('✅')
 
     m.reply(replyMessage);
   } catch (error) {
@@ -34,6 +34,6 @@ m.react('✅')
 };
 
 handler.command = ['google'];
-handler.tag = ['buscador']
+handler.tags = ['search']
 handler.help = ['google <text>']
 export default handler;
