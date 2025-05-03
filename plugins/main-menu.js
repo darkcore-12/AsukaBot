@@ -102,9 +102,9 @@ ${commandsForTag.map(menu => menu.help.map(help => `∫➤ ${_p}${help} ${menu.l
   }
 };
 
-handler.help = ['menu', 'allmenu'];
+handler.help = ['menu'];
 handler.tags = ['main'];
-handler.command = ['menu', 'allmenu', 'menú'];
+handler.command = ['menu', 'allmenu', 'menú', 'help'];
 handler.register = true;
 
 export default handler;
