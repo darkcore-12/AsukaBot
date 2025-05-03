@@ -64,14 +64,6 @@ let handler = async (m, { conn, text }) => {
     );
   }
 
-  if (!text.startsWith("http") || !text.includes("spotify.com")) {
-    return conn.reply(
-      m.chat,
-      "🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫 𝐩𝐫𝐨𝐩𝐨𝐫𝐜𝐢𝐨𝐧𝐚 𝐞𝐥 𝐧𝐨𝐦𝐛𝐫𝐞 𝐝𝐞 𝐮𝐧𝐚 𝐜𝐚𝐧𝐜𝐢ó𝐧 𝐨 𝐚𝐫𝐭𝐢𝐬𝐭𝐚～ꗥ🌸",
-      m
-    );
-  }
-
   await m.react("🕓");
 
   try {
