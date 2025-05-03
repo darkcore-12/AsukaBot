@@ -1,102 +1,124 @@
-/*import axios from 'axios'
-import fetch from 'node-fetch'
+import axios from "axios";
+import fetch from "node-fetch";
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return conn.reply(m.chat, `${emoji} 🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫 𝐩𝐫𝐨𝐩𝐨𝐫𝐜𝐢𝐨𝐧𝐚 𝐞𝐥 𝐧𝐨𝐦𝐛𝐫𝐞 𝐝𝐞 𝐮𝐧𝐚 𝐜𝐚𝐧𝐜𝐢ó𝐧 𝐨 𝐚𝐫𝐭𝐢𝐬𝐭𝐚～ꗥ🌸`, m)
+async function getSpotifyDownloadLink(trackUrl) {
+  try {
+    const homepageResponse = await axios.get("https://spowload.com", {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+      },
+    });
 
-    try {
-        m.react("🧃")
+    const cookies = homepageResponse.headers["set-cookie"]
+      .map((cookie) => cookie.split(";")[0])
+      .join("; ");
 
-        let songInfo = await spotifyxv(text)
-        if (!songInfo.length) throw `${emoji2} No se encontró la canción.`
+    const match = cookies.match(/XSRF-TOKEN=([^;]+)/);
+    if (!match) throw new Error("❌ No se pudo extraer el CSRF Token.");
 
-        let song = songInfo[0]
+    const csrfToken = decodeURIComponent(match[1]);
 
-        const apiURL = `https://api.sylphy.xyz/download/spotify?url=${encodeURIComponent(song.url)}&apikey=sylph`
-        const res = await fetch(apiURL)
-        if (!res.ok) throw `❌ Error al conectar con la API Sylphy (código ${res.status})`
+    const apiUrl = "https://spowload.com/convert";
+    const requestData = { urls: trackUrl };
 
-        const json = await res.json()
-        if (!json.status || !json.data?.dl_url) throw `${emoji2} No se pudo obtener la canción.`
+    const response = await axios.post(apiUrl, requestData, {
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "https://spowload.com",
+        Referer: "https://spowload.com",
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+        "X-XSRF-TOKEN": csrfToken,
+        Cookie: cookies,
+      },
+    });
 
-        const result = json.data
-        const info = `「✦」*Descargando: ${result.title}*\n\n> 👤 *Artista:* ${result.artist}\n> 💽 *Álbum:* ${result.album}\n> 🕒 *Duración:* ${result.duration}\n> 🔗 *Enlace:* ${result.url}`
-
-        await conn.sendMessage(m.chat, {
-            text: info,
-            contextInfo: {
-                forwardingScore: 999999,
-                isForwarded: false,
-                externalAdReply: {
-                    showAdAttribution: true,
-                    containsAutoReply: true,
-                    renderLargerThumbnail: true,
-                    title: packname,
-                    body: dev,
-                    mediaType: 1,
-                    thumbnailUrl: result.img,
-                    mediaUrl: result.dl_url,
-                    sourceUrl: result.url
-                }
-            }
-        }, { quoted: m })
-
-        await conn.sendMessage(m.chat, {
-            audio: { url: result.dl_url },
-            fileName: `${result.title}.mp3`,
-            mimetype: 'audio/mp4',
-            ptt: true
-        }, { quoted: m })
-
-    } catch (err) {
-        console.error(err)
-        m.reply(typeof err === 'string' ? err : err.message || '❌ Ocurrió un error inesperado.')
-    }
+    return response.data;
+  } catch (error) {
+    console.error(
+      "⚠️ Error en la solicitud:",
+      error.response?.status,
+      error.response?.data || error.message
+    );
+    return null;
+  }
 }
 
-handler.help = ['spotify', 'music']
+async function getSpotifyTrackInfo(trackUrl) {
+  try {
+    let apiURL = `https://open.spotify.com/oembed?url=${trackUrl}`;
+    let response = await axios.get(apiURL);
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+let handler = async (m, { conn, text }) => {
+  if (!text) {
+    return conn.reply(
+      m.chat,
+      "[ ᰔᩚ ] Ingresa una URL de *Spotify* para descargar la canción.",
+      m
+    );
+  }
+
+  if (!text.startsWith("http") || !text.includes("spotify.com")) {
+    return conn.reply(
+      m.chat,
+      "🌸ꗥ～𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫 𝐩𝐫𝐨𝐩𝐨𝐫𝐜𝐢𝐨𝐧𝐚 𝐞𝐥 𝐧𝐨𝐦𝐛𝐫𝐞 𝐝𝐞 𝐮𝐧𝐚 𝐜𝐚𝐧𝐜𝐢ó𝐧 𝐨 𝐚𝐫𝐭𝐢𝐬𝐭𝐚～ꗥ🌸",
+      m
+    );
+  }
+
+  await m.react("🕓");
+
+  try {
+    let trackInfo = await getSpotifyTrackInfo(text);
+    let json = await getSpotifyDownloadLink(text);
+
+    if (json && json.url && trackInfo) {
+      let downloadLink = json.url;
+      let title = trackInfo.title || "Audio descargado";
+      let thumbnail = trackInfo.thumbnail_url || "";
+
+      await conn.sendMessage(
+        m.chat,
+        {
+          audio: { url: downloadLink },
+          mimetype: "audio/mp4",
+          ptt: true,
+          contextInfo: {
+            externalAdReply: {
+              title: title,
+              body: "Audio Descargado de Sofia-Ai",
+              mediaType: 1,
+              mediaUrl: text,
+              thumbnailUrl: thumbnail,
+              sourceUrl: text,
+              containsAutoReply: true,
+              renderLargerThumbnail: true,
+              showAdAttribution: false,
+            },
+          },
+        },
+        { quoted: m }
+      );
+
+      await m.react("✅");
+    } else {
+      await m.reply("❌ No se pudo obtener el audio.");
+    }
+  } catch (error) {
+    console.error(error);
+    await m.react("⚠️");
+  }
+};
+
+handler.help = ['spotify', 'splay']
 handler.tags = ['downloader']
 handler.command = ['spotify', 'splay']
 handler.group = true
-handler.register = true
+export default handler;
 
-export default handler
-
-// Función para buscar la canción en Spotify
-async function spotifyxv(query) {
-    let token = await tokens()
-    let response = await axios.get(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track`, {
-        headers: {
-            Authorization: 'Bearer ' + token
-        }
-    })
-    const tracks = response.data.tracks.items
-    return tracks.map(track => ({
-        name: track.name,
-        artista: track.artists.map(artist => artist.name).join(', '),
-        album: track.album.name,
-        duracion: timestamp(track.duration_ms),
-        url: track.external_urls.spotify,
-        imagen: track.album.images[0]?.url || ''
-    }))
-}
-
-// Token de Spotify
-async function tokens() {
-    const response = await axios.post('https://accounts.spotify.com/api/token',
-        'grant_type=client_credentials', {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                Authorization: 'Basic ' + Buffer.from('acc6302297e040aeb6e4ac1fbdfd62c3:0e8439a1280a43aba9a5bc0a16f3f009').toString('base64')
-            }
-        })
-    return response.data.access_token
-}
-
-// Convertir tiempo en ms a formato mm:ss
-function timestamp(time) {
-    const minutes = Math.floor(time / 60000)
-    const seconds = Math.floor((time % 60000) / 1000)
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-}
-*/
