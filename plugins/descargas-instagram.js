@@ -24,6 +24,6 @@ const handler = async (m, { args, conn }) => {
 
 handler.command = ['instagram', 'ig']
 handler.tags = ['downloader']
-handler.help = ['instagram <text>]
+handler.help = ['instagram <text>']
 handler.group = true;
 export default handler;
