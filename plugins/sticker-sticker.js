@@ -62,8 +62,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 handler.help = ['sticker <imagen>', 'sticker <url>'];
 handler.tags = ['sticker'];
 handler.command = ['s', 'sticker', 'stiker'];
-handler.register = true;
-
 export default handler;
 
 const isUrl = (text) => {
